@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as XLSX from "xlsx";
 import CardList from './CardList';
@@ -7,7 +6,6 @@ import CardList from './CardList';
 
 function App() {
   const [cardsList, setCardsList] = useState([]);
-
 
 
   const readExcel = (file) => {
@@ -29,16 +27,35 @@ function App() {
     };
   }
   
+
+    // Create a reference to the hidden file input element
+  const hiddenFileInput = React.useRef(null);
+  
+  // Programatically click the hidden file input element
+  // when the Button component is clicked
+  const handleClick = event => {
+    hiddenFileInput.current.click();
+  };
+
+
   return (
     <div className="App">
-      <h1>hello</h1>
+      <br/>
+    <button className="btn shadow-none" onClick={handleClick}>
+      Kalamazoo Materials: Superior
+    </button>
+
       <input
         type="file"
+        ref={hiddenFileInput}
         onChange={(e) => {
           const file = e.target.files[0];
           readExcel(file);
         }}
+        
+        style={{display: 'none'}}
       />
+
       <div className="container">
         <CardList cardList={cardsList}/>
       </div>
