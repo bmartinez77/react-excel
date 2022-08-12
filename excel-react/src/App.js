@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import './App.css';
 import * as XLSX from "xlsx";
 import CardList from './CardList';
+import { useReactToPrint } from "react-to-print";
 
 
 function App() {
   const [cardsList, setCardsList] = useState([]);
 
-
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  
   const readExcel = (file) => {
     const fileReader = new FileReader();
     fileReader.readAsArrayBuffer(file);
@@ -44,6 +49,7 @@ function App() {
     <button className="btn shadow-none" onClick={handleClick}>
       Kalamazoo Materials: Superior
     </button>
+    <button onClick={handlePrint} className="btn shadow-none">  Print </button> 
 
       <input
         type="file"
@@ -56,7 +62,7 @@ function App() {
         style={{display: 'none'}}
       />
 
-      <div className="container">
+      <div className="container" style={{width: '100%'}} ref={componentRef}>
         <CardList cardList={cardsList}/>
       </div>
 
