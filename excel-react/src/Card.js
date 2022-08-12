@@ -6,7 +6,7 @@ const Card = (props) => {
 
     
     return (
-    <div className="card" style={{ width: "100%", height:'20%' }}>
+    <div className="card" style={{ width: "100%", height:'15%' }}>
         <div className="container" >
 
             
